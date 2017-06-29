@@ -1,6 +1,7 @@
 ﻿using CAFfrMAPBack.Models;
 using CAFfrMAPBack.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -21,6 +22,12 @@ namespace CAFfrMAPBack.Controllers
             return this.provider.GetAll();
         }
 
+        [Route("api/POI/getall")]
+        public IEnumerable<POI> GetAll()
+        {
+            return this.provider.GetAll();
+        }
+
         [Route("api/POI/get/{filtres}")]
         public IEnumerable<POI> Get([FromUri] string filtres)
         {
@@ -32,7 +39,7 @@ namespace CAFfrMAPBack.Controllers
         [Route("api/POI/getallocataire")]
         public Allocataire GetAllocataire()
         {
-            return new Allocataire() { Adresse = "37 rue de rennes", CodePostal = 35510, Ville = "Cesson sévigné" };
+            return new Allocataire() { Adresse1 = "37 rue de rennes", CodePostal = 35510, Ville = "Cesson sévigné" };
         }
 
 

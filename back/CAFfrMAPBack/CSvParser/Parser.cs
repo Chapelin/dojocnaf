@@ -15,6 +15,8 @@ namespace CAFfrMAPBack.CSvParser
         {
             var csvREader = new CsvReader(data);
             csvREader.Configuration.Delimiter = ";";
+            csvREader.Configuration.TrimFields = true;
+            csvREader.Configuration.TrimHeaders = true;
             csvREader.Configuration.RegisterClassMap<CSvMapper>();
             var listePOI = csvREader.GetRecords<POI>();
 

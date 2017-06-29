@@ -13,7 +13,7 @@ namespace CAFfrMAPBack.CSvParser
 
         public CSvMapper()
         {
-            Map(m => m.Nom).Name("Nom_accueil ");
+            Map(m => m.Nom).Name("Nom_accueil");
             Map(m => m.Type).Name("type_accueil");
             Map(m => m.CodePostal).Name("code postal_caf_fr");
             Map(m => m.Ville).Name("ville_caf_fr");
