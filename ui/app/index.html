@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="appGeoCaf">
+    <head>	
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="description" content="Outil de localisation dese établissements professionnels">
+        <meta name="author" content="Pages Jaunes">
+        <link rel="apple-touch-icon" href="img/favicon-152.png">
+        <link rel="shortcut icon" sizes="196x196" href="img/favicon-196.png">
+
+        <title>Geopro</title>
+
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet" type="text/css">
+        <link href="bower_components/leaflet-sidebar/src/L.Control.Sidebar.css" rel="stylesheet" type="text/css">
+        <link href="bower_components/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.css" rel="stylesheet" type="text/css">
+        
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+
+        <!-- JS Angular -->
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+
+        <script src="js/app.js"></script>
+        <script src="js/controllers/mainCtrl.js"></script>
+        <script src="js/filters/filters.js"></script>
+        <script src="js/services/services.js"></script>
+        
+        <!-- External Librairies -->
+
+        <!-- Bootstrap UI -->
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+        <!-- jQuery -->
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <!-- PDFMake -->
+        <!-- <script type="text/javascript" src='bower_components/pdfmake/build/pdfmake.min.js'></script>
+        <script type="text/javascript" src='bower_components/pdfmake/build/vfs_fonts.js'></script>-->
+
+        <script>
+            // Optimisation des performances pour Leaflet
+            L_PREFER_CANVAS = true;
+        </script>
+        <script type="text/javascript" src="bower_components/leaflet/dist/leaflet.js"></script>
+        <!--Plugin groupedlayer-->
+        <script type="text/javascript" src="bower_components/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.js"></script>
+
+        <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.min.css">
+        <link rel="stylesheet" href="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+        <script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+
+        <link rel="stylesheet" href="bower_components/ngprogress/ngProgress.css" />
+        <script src="bower_components/ngprogress/build/ngProgress.min.js"></script>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body ng-controller="MainCtrl" ui-i18n="{{lang}}">
+        <div class="alert alert-info custom-popup" ng-repeat="alert in alerts" type="{{alert.type}}" role="alert">{{alert.msg}}</div>
+        <article id="map"></article>
+        <button id="buttonLegend" ng-click="display.legend = !display.legend">Légende</button>
+        <div id="mainLegend" ng-include="'views/legende.html'" ng-show="display.legend"></div>
+    </body>
+</html>
