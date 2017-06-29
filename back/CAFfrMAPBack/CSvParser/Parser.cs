@@ -14,7 +14,11 @@ namespace CAFfrMAPBack.CSvParser
         public List<POI> Parse(TextReader data)
         {
             var csvREader = new CsvReader(data);
-            return null;
+            csvREader.Configuration.Delimiter = ";";
+            csvREader.Configuration.RegisterClassMap<CSvMapper>();
+            var listePOI = csvREader.GetRecords<POI>();
+
+            return listePOI.ToList();
         }
     }
 }

@@ -16,8 +16,10 @@ namespace CAFfrMAPBack.Models
             }
         }
 
-        public double X { get; set; }
-        public double Y { get; set; }
+     
+        public string X { get; set; }
+       
+        public string Y { get; set; }
         public string Adresse { get; set; }
         public int CodePostal { get; set; }
         public string Ville { get; set; }

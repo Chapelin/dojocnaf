@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CAFfrMAPBack.Models;
+using CAFfrMAPBack.CSvParser;
+using System.IO;
 
 namespace CAFfrMAPBack.Services
 {
@@ -10,7 +12,11 @@ namespace CAFfrMAPBack.Services
     {
         private IEnumerable<POI> data;
 
-        public POIProvider(IEnumerable<POI> data)
+        public POIProvider()
+        {
+            this.data = new List<POI>();
+        }
+        public POIProvider(List<POI> data)
         {
             this.data = data;
         }
