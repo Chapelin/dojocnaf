@@ -3,8 +3,8 @@
 
     angular.module('appGeoCaf').controller('MainCtrl', MainCtrl);
 
-    MainCtrl.$inject = ['$scope', '$filter', '$timeout', '$compile', '$modal', 'ngProgress', 'geoCafConfig', 'AppCafServices'];
-    function MainCtrl($scope, $filter, $timeout, $compile, $modal, ngProgress, geoCafConfig, AppCafServices) {
+    MainCtrl.$inject = ['$scope', '$rootScope', '$filter', '$timeout', '$compile', '$modal', 'ngProgress', 'geoCafConfig', 'AppCafServices', 'AppBanServices'];
+    function MainCtrl($scope, $rootScope, $filter, $timeout, $compile, $modal, ngProgress, geoCafConfig, AppCafServices, AppBanServices) {
         // Définition des variables AngularJS pour l'outil
         $scope.lang = "fr";
         $scope.version = geoCafConfig.version;
@@ -27,13 +27,24 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         });
 
+        var markers = {
+            agence: { color: 'blue', icon: 'building' },
+            antenne: { color: 'brown', icon: 'wifi' },
+            centre_impots: { color: 'magenta', icon: 'money' },
+            cpam: { color: 'cyan', icon: 'cab' },
+            mairie: { color: 'purple', icon: 'institution' },
+            permanence: { color: 'yellow', icon: 'id-card' },
+            pole_emploi: { color: 'green', icon: 'user-plus' },
+            allocataire: { color: 'red', icon: 'user' }
+        }
+
         // Paramétrage et définition de la map Leaflet
         var map = new L.Map('map', {
             layers: [basemap],
             center: [48.853, 2.35],
             zoom: 10,
-            minZoom: 10,
-            maxZoom: 15,
+            //minZoom: 10,
+            //maxZoom: 15,
             zoomControl: false
         });
         L.control.zoom({ position: 'topright' }).addTo(map);
@@ -47,37 +58,55 @@
             });
         };
 
-        var load_data = function () {
-            AppCafServices.locate({ address: "12 avenue henri fréville 35000 RENNES" }, function (results) {
+        var load_data = function (_adresse) {
+            AppBanServices.locateAllocataire({ address: _adresse }, function (results) {
                 console.log(results);
-                load_marker(results.features[0]);
-                $scope.ngProgress.complete();
+                var _tmp_data = {
+                    adresse: results.features[0].properties.label,
+                    lat: results.features[0].geometry.coordinates[1],
+                    lon: results.features[0].geometry.coordinates[0]
+                }
+                load_marker(_tmp_data, markers.allocataire);
+                $rootScope.ngProgress.complete();
             }, function (error) {
                 $rootScope.ngProgress.reset();
                 console.error('Erreur load_data(): ', error);
             });
         }
 
-        var load_marker = function (result) {
-            var customMarker = L.AwesomeMarkers.icon({
-                icon: 'user',
-                markerColor: 'red',
-                prefix: 'glyphicon',
-                iconColor: 'white'
-            });
-            var marker = L.marker([result.geometry.coordinates[1], result.geometry.coordinates[0]], {
+        var load_marker = function (result, marker_style) {
+            if (marker_style == markers.antenne) {
+                var content = '<div style="width:230px">' +
+                    '<table class="table table-striped table-bordered table-condensed">' +
+                    '<tr><th>Adresse</th><td><b>' + result.adresse + '</b></td></tr>' +
+                    '</table>' +
+                    '<div style="clear:both"></div>' +
+                    '</div>';
+            }
+
+            var customMarker = null;
+
+            if (marker_style == markers.pole_emploi) {
+                customMarker = L.icon({
+                    iconUrl: 'img/pole_emploi.png'
+                });
+            } else if (marker_style == markers.cpam) {
+                customMarker = L.icon({
+                    iconUrl: 'img/cpam.png'
+                });
+            } else {
+                customMarker = L.AwesomeMarkers.icon({
+                    icon: marker_style.icon,
+                    markerColor: marker_style.color,
+                    prefix: 'glyphicon',
+                    iconColor: 'white'
+                });
+            }
+
+            var marker = L.marker([result.lat, result.lon], {
                 icon: customMarker,
                 zIndexOffset: 500
             }).addTo(map);
-
-            var content = '<div style="width:230px">' +
-                '<table class="table table-striped table-bordered table-condensed">' +
-                '<tr><th>Adresse</th><td><b>' + result.properties.label + '</b></td></tr>';
-
-            content += '</table>' +
-                //'<button style="float:right;margin-top:5px" ng-click="setEtablissementAsSelected())">Sélectionner</button>' +
-                '<div style="clear:both"></div>' +
-                '</div>';
 
             var linkFunction = $compile(angular.element(content)),
                 newScope = $scope.$new();
@@ -87,9 +116,44 @@
                 closeButton: true
             });
 
-            map.setView([result.geometry.coordinates[1], result.geometry.coordinates[0]]);
+            if (marker_style == markers.allocataire) {
+                map.setView([result.lat, result.lon]);
+            }
         }
 
-        load_data();
+        var getDataAllocataire = function () {
+            // Appel API CAF
+            AppCafServices.getAllocataire({}, function (result) {
+                console.log("getDataAllocataire:", result);
+                load_data(result.AdresseComplete);
+                $rootScope.ngProgress.complete();
+            }, function (error) {
+                $rootScope.ngProgress.reset();
+                console.error('Erreur appel au service : ', error);
+            });
+        }
+
+        var getDataPOI = function () {
+            AppCafServices.getPoi({}, function (results) {
+                console.log("getDataPOI:", results);
+                // TODO : add markers
+                angular.forEach(results, function (result, key) {
+                    var _tmp_data = {
+                        adresse: result.AdresseComplete,
+                        lat: result.X,
+                        lon: result.Y
+                    }
+                    load_marker(_tmp_data, result.Type);
+                });
+                
+                $rootScope.ngProgress.complete();
+            }, function (error) {
+                $rootScope.ngProgress.reset();
+                console.error('Erreur appel au service : ', error);
+            });
+        }
+       
+        getDataAllocataire();
+        getDataPOI();
     }
 })();

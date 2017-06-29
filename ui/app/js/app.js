@@ -24,7 +24,8 @@
     ]).constant('geoCafConfig', {
         "version": "0.0.1",
         "apis": {
-            "ban": "https://api-adresse.data.gouv.fr/search/?q="
+            "ban": "https://api-adresse.data.gouv.fr/search/?q=",
+            "caf": "http://caffrmapback20170629041333.azurewebsites.net/api/POI"
         }
     });
 
