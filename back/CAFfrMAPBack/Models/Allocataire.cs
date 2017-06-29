@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CAFfrMAPBack.Models
 {
-    public class POI
+    public class Allocataire
     {
         public string Nom { get; set; }
         public string AdresseComplete
@@ -16,11 +16,8 @@ namespace CAFfrMAPBack.Models
             }
         }
 
-        public double X { get; set; }
-        public double Y { get; set; }
         public string Adresse { get; set; }
         public int CodePostal { get; set; }
         public string Ville { get; set; }
-        public string Type { get; set; }
     }
 }

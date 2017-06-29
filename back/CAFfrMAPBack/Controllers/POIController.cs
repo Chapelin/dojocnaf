@@ -19,5 +19,11 @@ namespace CAFfrMAPBack.Controllers
         {
             return this.provider.GetAll();
         }
+
+        [Route("api/POI/getallocataire")]
+        public Allocataire GetAllocataire()
+        {
+            return new Allocataire() { Adresse = "37 rue de rennes", CodePostal = 35510, Ville = "Cesson sévigné" };
+        }
     }
 }
