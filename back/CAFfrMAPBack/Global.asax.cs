@@ -6,6 +6,8 @@ namespace CAFfrMAPBack
     {
         protected void Application_Start()
         {
+            UnityConfig.RegisterComponents();                           // <----- Add this line
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
         }

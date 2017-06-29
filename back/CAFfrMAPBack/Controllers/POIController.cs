@@ -10,9 +10,9 @@ namespace CAFfrMAPBack.Controllers
     {
         private IPOIProvider provider;
 
-        public POIController() : base()
+        public POIController(IPOIProvider provider) : base()
         {
-            this.provider = new POIProvider();
+            this.provider = provider;
         }
 
         public IEnumerable<POI> Get()
