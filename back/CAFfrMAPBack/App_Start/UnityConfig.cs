@@ -18,22 +18,21 @@ namespace CAFfrMAPBack
 
         public static void RegisterComponents()
         {
-			var container = new UnityContainer();
+            var container = new UnityContainer();
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
             var parser = new Parser();
-            var reader = File.OpenRead(
-                    Path.Combine((string)AppDomain.CurrentDomain.GetData("DataDirectory"),"GEOLOC.csv"));
-            var provider = new POIProvider(parser.Parse(new StreamReader(reader)));
-            //var provider = new POIProvider(new List<POI>(){
-            //        new POI() {Adresse = "37 rue de rennes",
-            //                    CodePostal = 35510, Ville = "Cesson-sévigné", Nom="Dummy",
-            //                    X = -1.675076,
-            //                    Y = 48.090707} });
-            container.RegisterInstance<IPOIProvider>(provider);
+            using (var reader = File.OpenRead(
+                    Path.Combine((string)AppDomain.CurrentDomain.GetData("DataDirectory"), "GEOLOC.csv")))
+            {
+                var provider = new POIProvider(parser.Parse(new StreamReader(reader)));
+                container.RegisterInstance<IPOIProvider>(provider);
+
+            }
+           
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

@@ -24,5 +24,9 @@ namespace CAFfrMAPBack.Models
         public int CodePostal { get; set; }
         public string Ville { get; set; }
         public string Type { get; set; }
+        public string HeuresOuvertures { get; set; }
+        public string ComplementHeures { get; set; }
+
+
     }
 }
