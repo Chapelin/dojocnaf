@@ -115,6 +115,10 @@
                 templateUrl: 'views/moncompte.html',
                 controller: 'MonCompteCtrl'
             })
+            .when('/moncompte2', {
+                templateUrl: 'views/moncompte2.html',
+                controller: 'MonCompteCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });

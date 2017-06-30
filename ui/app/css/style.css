@@ -121,3 +121,8 @@ body {overflow: auto}
 #theme-header-content-cnaf.affix {
     top: 50px !important;
 }
+
+btn btn-form-valider-cnaf btn-active-cnaf align-middle-cnaf {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
