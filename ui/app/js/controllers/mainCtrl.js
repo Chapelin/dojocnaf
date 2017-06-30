@@ -35,9 +35,7 @@
         var map = new L.Map('map', {
             layers: [basemap],
             center: [48.853, 2.35],
-            zoom: 10,
-            //minZoom: 10,
-            //maxZoom: 15,
+            zoom: 13,
             zoomControl: false
         });
         L.control.zoom({ position: 'topright' }).addTo(map);
@@ -78,36 +76,36 @@
                     '			</thead>' +
                     '			<tbody>' +
                     '				<tr>' +
-                    '					<td>Type d\'accueil</td><td>' + result.Type_Libelle + '</td> <td class=""></td>' +
+                    '					<td>Type d\'accueil</td><td>' + result.Type_Libelle + '</td><td></td>' +
                     '				</tr>' +
                     '				<tr>' +
-                    '					<td>Adresse</td><td  class="">' + result.Adresse + '</td><td class=""></td>' +
+                    '					<td>Adresse</td><td>' + result.Adresse + '</td><td></td>' +
                     '				</tr>' +
                     '					<tr>' +
-                    '					<td>Ville</td><td  class="">' + result.Ville + ' ' + result.CodePostal + '</td>' +
+                    '					<td>Ville</td><td>' + result.Ville + ' ' + result.CodePostal + '</td>' +
                     '				</tr>' +
                     '				<thead>' +
                     '					<tr>' +
-                    '						<th colspan=2>MODALITE d\'ACCUEIL</th > ' +
+                    '						<th colspan=2>MODALITE d\'ACCUEIL</th> ' +
                     '					</tr>' +
                     '				</thead>' +
                     '				<tr>' +
-                    '					<td class="">Jours d\'ouverture</td > <td class="">Lun - Mar - Mer - Jeu - Ven</td>' +
+                    '					<td>Jours d\'ouverture</td><td>Lun - Mar - Mer - Jeu - Ven</td>' +
                     '				</tr>' +
                     '				<tr>' +
-                    '					<td class="">Heures d\'ouverture</td > <td class="">8h30 - 16h00</td> <td class=""></td>' +
+                    '					<td>Heures d\'ouverture</td><td>8h30 - 16h00</td>' +
                     '				</tr>' +
                     '				<tr>' +
-                    '					<td class="">Acces internet</td><td  class="">OUI</td><td  class=""></td>' +
+                    '					<td>Acces internet</td><td>OUI</td><td></td>' +
                     '				</tr>' +
                     '				<tr>' +
-                    '					<td class="">Accompagnement Web</td><td  class="">OUI</td>' +
+                    '					<td>Accompagnement Web</td><td>OUI</td>' +
                     '				</tr>' +
                     '				<tr>' +
-                    '					<td class="">Borne interactive</td><td  class="">NON</td>' +
+                    '					<td>Borne interactive</td><td>NON</td>' +
                     '				</tr>' +
                     '				<tr>' +
-                    '					<td class="">Impression - scan</td><td  class="">OUI</td>' +
+                    '					<td>Impression - scan</td><td>OUI</td>' +
                     '				</tr>' +
                     '				<thead>' +
                     '					<tr>' +
@@ -115,9 +113,12 @@
                     '					</tr>' +
                     '				</thead>' +
                     '				<tr>' +
-                    '					<td colspan=2 ><img class="aff" src="img/affluence.png" alt="plage affluence" width="350" /></td>' +
-                    '				</tr>	' +
-                    '			</tbody>' +
+                    '					<td colspan=2><img src="img/affluence.png" alt="plage affluence" width="350" /></td>' +
+                    '				</tr>';
+                    if (marker_style == 'agence') {
+                        content += "<tr><td><button>Prendre un rendez-vous</button></td></tr>";
+                    }
+                    content += '			</tbody>' +
                     '		</table>';
             } else {
                 content = '<b style="white-space:nowrap;">Vous êtes ici</b>';
