@@ -17,7 +17,7 @@
 
     AppCafServices.$inject = ['$resource', 'geoCafConfig'];
     function AppCafServices($resource, geoCafConfig) {
-        return $resource(geoCafConfig.apis.caf + '/:resource', {}, {
+        return $resource(geoCafConfig.apis.caf + '/:resource/:filtre', {}, {
             getAllocataire: {
                 method: 'GET',
                 params: {
@@ -28,6 +28,13 @@
                 method: 'GET',
                 params: {
                     resource: 'getall'
+                },
+                isArray: true
+            },
+            getFilteredPoi: {
+                method: 'GET',
+                params: {
+                    resource: 'get'
                 },
                 isArray: true
             }

@@ -3,8 +3,8 @@
 
     angular.module('appGeoCaf').controller('MainCtrl', MainCtrl);
 
-    MainCtrl.$inject = ['$scope', '$rootScope', '$filter', '$timeout', '$compile', '$modal', 'ngProgress', 'geoCafConfig', 'AppCafServices', 'AppBanServices'];
-    function MainCtrl($scope, $rootScope, $filter, $timeout, $compile, $modal, ngProgress, geoCafConfig, AppCafServices, AppBanServices) {
+    MainCtrl.$inject = ['$scope', '$rootScope', '$filter', '$timeout', '$compile', '$routeParams', '$modal', 'ngProgress', 'geoCafConfig', 'AppCafServices', 'AppBanServices'];
+    function MainCtrl($scope, $rootScope, $filter, $timeout, $compile, $routeParams, $modal, ngProgress, geoCafConfig, AppCafServices, AppBanServices) {
         // Définition des variables AngularJS pour l'outil
         $scope.lang = "fr";
         $scope.version = geoCafConfig.version;
@@ -176,19 +176,34 @@
         }
 
         var getDataPOI = function () {
-            AppCafServices.getPoi({}, function (results) {
-                console.log("getDataPOI:", results);
-                angular.forEach(results, function (result, key) {
-                    load_marker(result, result.Type);
+            var filtre = $routeParams.filtre;
+            if (filtre) {
+                AppCafServices.getFilteredPoi({ filtre: filtre }, function (results) {
+                    console.log("getFilteredDataPOI:", results);
+                    angular.forEach(results, function (result, key) {
+                        load_marker(result, result.Type);
+                    });
+
+                    $rootScope.ngProgress.complete();
+                }, function (error) {
+                    $rootScope.ngProgress.reset();
+                    console.error('Erreur appel au service : ', error);
                 });
-                
-                $rootScope.ngProgress.complete();
-            }, function (error) {
-                $rootScope.ngProgress.reset();
-                console.error('Erreur appel au service : ', error);
-            });
+            } else {
+                AppCafServices.getPoi({}, function (results) {
+                    console.log("getDataPOI:", results);
+                    angular.forEach(results, function (result, key) {
+                        load_marker(result, result.Type);
+                    });
+
+                    $rootScope.ngProgress.complete();
+                }, function (error) {
+                    $rootScope.ngProgress.reset();
+                    console.error('Erreur appel au service : ', error);
+                });
+            }
         }
-       
+        
         getDataAllocataire();
         getDataPOI();
     }
