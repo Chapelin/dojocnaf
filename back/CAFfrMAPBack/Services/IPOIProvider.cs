@@ -6,7 +6,7 @@ namespace CAFfrMAPBack.Services
     public interface IPOIProvider
     {
         IEnumerable<POI> GetAll();
-        IEnumerable<POI> GetByFiltre(params string[] filtres);
+        IEnumerable<POI> GetByType(params string[] filtres);
        
     }
 }

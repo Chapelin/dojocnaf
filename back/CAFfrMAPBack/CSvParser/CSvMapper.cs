@@ -14,7 +14,11 @@ namespace CAFfrMAPBack.CSvParser
         public CSvMapper()
         {
             Map(m => m.Nom).Name("Nom_accueil");
-            Map(m => m.Type).ConvertUsing(x => x.GetField("type_accueil").Trim().ToLower()); // Name("type_accueil");
+            Map(m => m.Type).ConvertUsing(x => x.GetField("type_accueil").Trim().ToLower().Replace(' ','_')); // Name("type_accueil");
+            Map(m => m.Type_Libelle).ConvertUsing(x => { var res = x.GetField("type_accueil").Trim().ToLower();
+                var propre = res.Substring(0, 1).ToUpper() + new string(res.Skip(1).ToArray());
+                return propre;
+            } );
             Map(m => m.CodePostal).Name("code postal_caf_fr");
             Map(m => m.Ville).Name("ville_caf_fr");
             Map(m => m.Adresse).Name("adresse_caf_fr");

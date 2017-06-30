@@ -33,13 +33,13 @@ namespace CAFfrMAPBack.Controllers
         {
             var listefiltres = filtres.Split(',');
 
-            return this.provider.GetByFiltre(listefiltres);
+            return this.provider.GetByType(listefiltres);
         }
 
         [Route("api/POI/getallocataire")]
         public Allocataire GetAllocataire()
         {
-            return new Allocataire() { Adresse1 = "37 rue de rennes", CodePostal = 35510, Ville = "Cesson sévigné" };
+            return new Allocataire() { Adresse1 = "2 rue solférino", CodePostal = 59000, Ville = "Lille" };
         }
 
 

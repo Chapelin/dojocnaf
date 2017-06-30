@@ -25,7 +25,7 @@ namespace CAFfrMAPBack.Services
             return data;
         }
 
-        public IEnumerable<POI> GetByFiltre(params string[] filtres)
+        public IEnumerable<POI> GetByType(params string[] filtres)
         {
             return data.Where(x => filtres.Any(y => string.Equals(x.Type, y, StringComparison.InvariantCultureIgnoreCase)));
         }
