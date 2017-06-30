@@ -2,7 +2,9 @@ html, body {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    font-size: 16px;
 }
+body {overflow: auto}
 #map {
     height: 100%;
     position: absolute;
@@ -59,4 +61,63 @@ html, body {
     .leaflet-control-container {
         display: none !important;
     }
+}
+
+#buttonLegend {
+    background: rgba(255,255,255,0.7);
+    padding: 7px;
+    position: fixed;
+    right: 10px;
+    top: 130px;
+    border: solid 1px rgba(174,174,174,0.7);
+}
+#mainLegend {
+    background: rgba(255,255,255,0.5);
+    padding: 7px;
+    position: fixed;
+    right: 10px;
+    top: 170px;
+    border: solid 1px rgba(154,154,154,0.5);
+    width: 200px;
+    overflow: auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    bottom: 175px;
+    max-height: 545px;
+}
+#mainLegend .table-legend tr {
+    margin-bottom: 3px;
+}
+#mainLegend .table-legend td {
+    padding: 0px 5px;
+    height: 15px;
+    line-height: 20px;
+    font-size: 12px;
+    vertical-align: middle;
+}
+#mainLegend .awesome-marker {
+    position: relative !important;
+}
+
+/* SAL */
+.menu-dev {
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+#etapes li .milieu {
+    height: 48px !important;
+}
+#theme-header-content-cnaf {
+    width: 100% !important;
+    margin: 0 auto;
+}
+#theme-menu-moncompte-collapse-cnaf {
+    z-index: 50000000 !important;
+    position: absolute !important;
+    background: #EEE !important;
+    top: 77px;
+}
+#theme-header-content-cnaf.affix {
+    top: 50px !important;
 }
