@@ -12,7 +12,7 @@ var express = require('express'),
 
 var webappPath = '/app',
 	serverListenHost = '0.0.0.0', // can be modified
-	serverListenPort = '8089', // can be modified
+	serverListenPort = '80', // can be modified
 	app = express();
 
 // Enable server-side gzip compression
