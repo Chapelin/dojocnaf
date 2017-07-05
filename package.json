@@ -5,7 +5,7 @@
   "description": "GeoPro project GUI",
   "author": "Thomas Falcher",
   "devDependencies": {
-    "http-server": "^0.6.1",
+    "http-server": "^0.6.1"
     
   },
   "scripts": {
