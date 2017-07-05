@@ -26,6 +26,6 @@ app.use(express.static(__dirname + webappPath));
  * HTTP Server start
  * 
  * */
-var server = http.createServer(app).listen(serverListenPort, serverListenHost, function() {
+var server = http.createServer(app).listen(process.env.PORT ||serverListenPort, serverListenHost, function() {
 	console.log('Running on http://'+serverListenHost+':'+serverListenPort+'/');
 });
